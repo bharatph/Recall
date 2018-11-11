@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Recall</string>
+    <string name="memory_entry_hint">Your memory comes here...</string>
+</resources>

@@ -3,6 +3,6 @@
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
 
-    <dimen name="text_default">20sp</dimen>
-    <dimen name="text_medium">22sp</dimen>
+    <dimen name="text_default">@dimen/text_medium</dimen>
+    <dimen name="text_medium">20sp</dimen>
 </resources>

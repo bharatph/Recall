@@ -1,4 +1,4 @@
-package com.thing.recall.model
+package com.thing.recall.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -6,17 +6,21 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 
 import com.thing.recall.R
+import com.thing.recall.model.Memory
 import kotlinx.android.synthetic.main.fragment_write.*
+import java.text.DateFormat
 
-private const val ARG_DESC = "param1"
+private val ARG_MEM: String? = null
+private var mem: Memory? = null
 
 class WriteFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.finishButton -> {
-                listener?.onDescription(memWriter.text.toString())
+                listener?.onDescription(mem)
             }
         }
     }
@@ -27,8 +31,16 @@ class WriteFragment : Fragment(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_DESC)
+            param1 = it.getString(ARG_MEM)
+            mem = Gson().fromJson(param1, Memory::class.java)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        finishButton.setOnClickListener(this)
+        dateTitle.text = DateFormat.getDateInstance(DateFormat.MEDIUM).format(mem?.date) //FIXME
+        memWriter.setText(mem?.description)
     }
 
     override fun onCreateView(
@@ -54,7 +66,7 @@ class WriteFragment : Fragment(), View.OnClickListener {
     }
 
     interface OnDescriptionListener {
-        fun onDescription(desc: String)
+        fun onDescription(mem: Memory?)
     }
 
     companion object {
@@ -62,7 +74,7 @@ class WriteFragment : Fragment(), View.OnClickListener {
         fun newInstance(param1: String) =
             WriteFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_DESC, param1)
+                    putString(ARG_MEM, param1)
                 }
             }
     }

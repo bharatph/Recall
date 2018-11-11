@@ -8,10 +8,5 @@ object RecallHelper {
     var memories = LinkedList<Memory>()
 
     init {
-        memories.add(Memory(Date(), "Hi hello first entry"))
-        memories.add(Memory(Date(), "Hi hello first entry"))
-        memories.add(Memory(Date(), "Hi hello first entry"))
-        memories.add(Memory(Date(), "Hi hello first entry"))
-        memories.add(Memory(Date(), "Hi hello first entry"))
     }
 }

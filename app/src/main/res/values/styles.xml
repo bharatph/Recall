@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:textViewStyle">@style/AppTheme.TextView</item>
+        <item name="editTextStyle">@style/AppTheme.EditText</item>
     </style>
 
     <style name="AppTheme.DateTextView" parent="TextAppearance.AppCompat">
@@ -17,6 +18,10 @@
 
     <style name="AppTheme.TextView" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/text_default</item>
+    </style>
+
+    <style name="AppTheme.EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@null</item>
     </style>
 
 </resources>

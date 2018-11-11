@@ -5,7 +5,8 @@
               android:layout_height="match_parent"
               android:orientation="vertical"
               android:padding="@dimen/margin_medium"
-              tools:context=".model.WriteFragment">
+              android:background="@android:color/white"
+              tools:context=".fragment.WriteFragment">
 
     <LinearLayout
             android:orientation="horizontal"
@@ -25,6 +26,7 @@
     </LinearLayout>
 
     <EditText
+            android:focusable="true"
             android:hint="@string/memory_entry_hint"
             android:id="@+id/memWriter"
             android:gravity="top|start"

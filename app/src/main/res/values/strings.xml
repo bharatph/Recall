@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Recall</string>
     <string name="memory_entry_hint">Your memory comes here…</string>
+    <string name="add_memories">Add memories…</string>
     <string name="sammple_text">An abbreviation (from Latin brevi³re → brevis meaning “short”) is a shortened form of a word or phrase used mainly in writing to represent the complete form. It usually has a full-stop at the end.</string>
 </resources>

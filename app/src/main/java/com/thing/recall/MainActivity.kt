@@ -1,36 +1,88 @@
 package com.thing.recall
 
 import android.arch.persistence.room.Room
-import android.arch.persistence.room.RoomDatabase
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import com.thing.recall.model.Fragment
 import com.thing.recall.model.Memory
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.DateFormat
-import java.time.Instant
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.concurrent.thread
+import android.widget.DatePicker
+import android.app.DatePickerDialog
+import android.arch.persistence.room.RoomDatabase
+import com.thing.recall.fragment.WriterFragment
+import java.lang.StringBuilder
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), WriterFragment.OnShouldUpdateListener {
+
+    override fun onShouldUpdate(date: Date?, string: String?) {
+        if (date == null || string == null) return
+        thread {
+            var mem = memoryDao.getMemory(date)
+            if (mem == null) {
+                return@thread
+            }
+            mem.description = string
+            memoryDao.insert(mem)
+        }
+    }
+
+    fun showFragmentFor(date: Date) {
+        supportFragmentManager.popBackStack()
+        thread {
+            var mem = memoryDao.getMemory(date)
+            if(mem == null){
+                mem = Memory(date, "")
+                memoryDao.insert(mem)
+            }
+            dateTitle.text = SimpleDateFormat("MMM dd").format(mem.memoryOn.time)
+            supportFragmentManager.beginTransaction()
+                .addToBackStack("value")
+                .replace(
+                    R.id.writerFragmentContainer,
+                    WriterFragment.newInstance(mem.memoryOn.time, mem.description)
+                )
+                .commit()
+        }
+    }
+
+    lateinit var memoryDao: MemoryDao
+    lateinit var db: RecallDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        db = Room.databaseBuilder(this, RecallDatabase::class.java, "mem").build()
+        memoryDao = db.memoryDao()
         setContentView(R.layout.activity_main)
+        showFragmentFor(Date())
+        dateTitle.setOnClickListener {
+            val c = Calendar.getInstance()
+            var mYear = c.get(Calendar.YEAR)
+            var mMonth = c.get(Calendar.MONTH)
+            var mDay = c.get(Calendar.DAY_OF_MONTH)
 
-        thread {
-            val db = Room.databaseBuilder(this, RecallDatabase::class.java, "memories").build()
-            val memoryDao = db.memoryDao()
-            //memoryDao.insert(Memory(Date(), listOf(Fragment(Date(), "Testing persistence lib"))))
-            var mem : Memory = memoryDao.getMemory(Date()) ?: return@thread
-            Handler(mainLooper).post {
-                dateTitle.text = DateFormat.getDateInstance().format(mem.memoryOn)
-                for(fragment in mem.fragments){
-                    memWriter.editableText.append(fragment.description)
-                }
-            }
+            val datePickerDialog = DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                    val date = Calendar.getInstance()
+                    date.set(year - 1900, monthOfYear, dayOfMonth)
+                    showFragmentFor(date.time)
+                },
+                mYear,
+                mMonth,
+                mDay
+            )
+            datePickerDialog.show()
         }
     }
+
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:focusable="true"
+        android:hint="@string/memory_entry_hint"
+        android:id="@+id/memWriter"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:inputType="textMultiLine|textAutoCorrect"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:gravity="top|start"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>

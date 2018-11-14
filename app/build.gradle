@@ -33,6 +33,8 @@ ext {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.0'
+
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "com.android.support:recyclerview-v7:$supportVersion"
@@ -41,6 +43,7 @@ dependencies {
     implementation "com.android.support:support-v4:$supportVersion"
     def room_version = "1.1.1"
     implementation "android.arch.persistence.room:runtime:$room_version"
+    implementation 'com.android.support:support-v4:28.0.0'
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     kapt "android.arch.persistence.room:compiler:$room_version"
     testImplementation 'junit:junit:4.12'

@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.Gson
 import com.thing.recall.model.Fragment
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class FragmentListConverter {
@@ -12,18 +13,18 @@ class FragmentListConverter {
     var gson = Gson()
 
     @TypeConverter
-    fun stringToFragmentList(data: String): List<Fragment> {
+    fun stringToFragmentList(data: String): LinkedList<Fragment> {
         if (data.isEmpty()) {
-            return Collections.emptyList()
+            return LinkedList()
         }
 
-        val listType = object : TypeToken<List<Fragment>>() {}.type
+        val listType = object : TypeToken<LinkedList<Fragment>>() {}.type
 
         return gson.fromJson(data, listType)
     }
 
     @TypeConverter
-    fun fragmentListToString(someObjects: List<Fragment>): String {
+    fun fragmentListToString(someObjects: LinkedList<Fragment>): String {
         return gson.toJson(someObjects)
     }
 }

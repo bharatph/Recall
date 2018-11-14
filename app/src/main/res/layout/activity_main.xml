@@ -4,11 +4,11 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:padding="@dimen/margin_medium"
               android:background="@android:color/white"
               tools:context=".MainActivity">
 
     <LinearLayout
+            android:padding="@dimen/margin_medium"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -18,21 +18,46 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
-        <ImageView
-                android:id="@+id/finishButton"
-                android:layout_marginStart="@dimen/margin_medium"
-                android:src="@drawable/ic_verification_mark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+                android:visibility="gone"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:gravity="center"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content">
+            <ImageView
+                    android:layout_weight="1"
+                    android:id="@+id/attachBtn"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:src="@drawable/ic_attachment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            <ImageView
+                    android:visibility="gone"
+                    android:layout_weight="1"
+                    android:id="@+id/redoBtn"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:src="@drawable/ic_attachment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+            <ImageView
+                    android:visibility="gone"
+                    android:layout_weight="1"
+                    android:id="@+id/undoBtn"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:src="@drawable/ic_attachment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
     </LinearLayout>
 
-    <EditText
-            android:focusable="true"
-            android:hint="@string/memory_entry_hint"
-            android:id="@+id/memWriter"
-            android:gravity="top|start"
-            android:layout_marginTop="@dimen/margin_small"
+    <FrameLayout
+            android:id="@+id/writerFragmentContainer"
             android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"/>
 </LinearLayout>

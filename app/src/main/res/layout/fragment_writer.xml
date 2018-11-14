@@ -5,7 +5,7 @@
         android:hint="@string/memory_entry_hint"
         android:id="@+id/memWriter"
         android:layout_marginStart="@dimen/margin_medium"
-        android:inputType="textMultiLine|textAutoCorrect"
+        android:inputType="textMultiLine|textAutoCorrect|textCapSentences"
         android:layout_marginEnd="@dimen/margin_medium"
         android:gravity="top|start"
         android:layout_marginTop="@dimen/margin_small"

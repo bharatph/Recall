@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), WriterFragment.OnShouldUpdateListener 
         supportFragmentManager.popBackStack()
         thread {
             var mem = memoryDao.getMemory(date)
-            if(mem == null){
+            if (mem == null) {
                 mem = Memory(date, "")
                 memoryDao.insert(mem)
             }
@@ -73,8 +73,9 @@ class MainActivity : AppCompatActivity(), WriterFragment.OnShouldUpdateListener 
             val datePickerDialog = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    val date = Calendar.getInstance()
-                    date.set(year - 1900, monthOfYear, dayOfMonth)
+                    val date = GregorianCalendar().apply {
+                        set(year, monthOfYear, dayOfMonth)
+                    }
                     showFragmentFor(date.time)
                 },
                 mYear,
